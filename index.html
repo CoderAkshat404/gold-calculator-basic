@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gold Money Calculator</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #fff8dc, #ffefd5);
+      padding: 20px;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      background-color: #fff;
+      border-radius: 12px;
+      padding: 25px;
+      max-width: 500px;
+      width: 100%;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #b8860b;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 6px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 12px;
+      background-color: #ffd700;
+      color: #000;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #e6c200;
+    }
+
+    #result {
+      margin-top: 25px;
+      padding: 15px;
+      background-color: #fffbe6;
+      border-left: 5px solid #ffd700;
+      border-radius: 8px;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 20px 15px;
+      }
+
+      h2 {
+        font-size: 22px;
+      }
+
+      input[type="number"],
+      button {
+        font-size: 15px;
+      }
+
+      #result {
+        font-size: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>💰 Gold Money Calculator 💰</h2>
+
+    <label for="grams">Gold Weight (grams):</label>
+    <input type="number" id="grams" step="0.01" min="0" placeholder="e.g., 5.5" />
+
+    <label for="milligrams">Gold Weight (milligrams):</label>
+    <input type="number" id="milligrams" step="1" min="0" placeholder="e.g., 500" />
+
+    <label for="rate">Current Rate of 10g Gold:</label>
+    <input type="number" id="rate" step="0.01" min="0" placeholder="e.g., 74000" />
+
+    <button onclick="calculateGoldValue()">Calculate Total Amount</button>
+
+    <div id="result"></div>
+  </div>
+
+  <script>
+    function calculateGoldValue() {
+      const grams = parseFloat(document.getElementById('grams').value) || 0;
+      const milligrams = parseFloat(document.getElementById('milligrams').value) || 0;
+      const rate10gm = parseFloat(document.getElementById('rate').value) || 0;
+
+      const totalGrams = grams + (milligrams / 1000);
+      const ratePerGram = rate10gm / 10;
+      const totalAmount = totalGrams * ratePerGram;
+
+      document.getElementById('result').innerHTML = `
+        <strong>Total Gold Weight:</strong> ${totalGrams.toFixed(3)} grams<br>
+        <strong>Price per Gram:</strong> ₹${ratePerGram.toFixed(2)}<br>
+        <strong>💵 Total Value:</strong> ₹${totalAmount.toFixed(2)}
+      `;
+    }
+  </script>
+</body>
+</html>
